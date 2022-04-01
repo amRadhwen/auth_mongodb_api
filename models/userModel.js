@@ -3,11 +3,11 @@ const bcrypt = require("bcryptjs");
 
 
 const userSchema = new Schema({
-    first_name: {
+    firstName: {
         type: String,
         required: true
     },
-    last_name: {
+    lastName: {
         type: String,
         required: true
     },
@@ -28,8 +28,12 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    birth_date: {
+    birthDate: {
         type: Date,
+        required: true
+    },
+    prov: {
+        type: String,
         required: true
     },
     addr: {
@@ -40,8 +44,9 @@ const userSchema = new Schema({
         type: Number,
         required: true
     },
-    is_admin: {
-        type: Boolean
+    isAdmin: {
+        type: Boolean,
+        default: false
     },
     avatar: {
         type: String

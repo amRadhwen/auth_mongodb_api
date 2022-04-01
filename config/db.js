@@ -8,7 +8,7 @@ module.exports.connectDB = async () => {
             useNewUrlParser: true
             //useCreateIndex: true
         })
-        console.log(`MongoDB Connected: ${con.connection.host}`);
+        console.log(`MongoDB Connected to : ${con.connection.host}@${con.connection.name}`);
     }
     catch(error) {
         console.log(`Error: ${error.message}`);

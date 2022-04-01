@@ -2,18 +2,18 @@ const { Schema, model } = require("mongoose");
 
 
 const productSchema = new Schema({
-	user: {
+	/*user: {
 		type: Schema.Types.ObjectId,
 		ref: "User",
 		required: true
-	},
+	},*/
 	name: {
 		type: String,
-		rquired: true
+		//required: true
 	},
 	cover: {
 		type: String,
-		required: true
+		//required: true
 	},
 	images: [{
 		type: String,
@@ -23,19 +23,19 @@ const productSchema = new Schema({
 	},
 	description: {
 		type: String,
-		required: true
+		//required: true
 	},
 	category: {
 		type: String,
-		required: true
+		//required: true
 	},
 	countInStock: {
 		type: Number,
-		required: true
+		//required: true
 	},
 	price: {
 		type: Number,
-		required: true
+		//required: true
 	}
 }, {
 	timestamps: true

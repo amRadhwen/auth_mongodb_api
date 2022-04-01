@@ -32,24 +32,38 @@ const authUser = asyncHandler(async (req, res)=>{
 // return user without password and jwt token
 const createUser = asyncHandler(async (req, res)=>{
     if(Object.keys(req.body).length) {
-        const data = {
-            first_name,
-            last_name,
-            username,
+        const {
+            firstName,
+            lastName,
+            //username,
             tel,
             email,
+            prov,
             addr,
             zip,
             password,
-            birth_date,
+            birthDate,
             avatar
         } = req.body;
-        const userExists = await User.findOne({email}) || await User.findOne({username});
+        const data = {
+            firstName,
+            lastName,
+            tel,
+            email,
+            prov,
+            addr,
+            zip,
+            password,
+            birthDate,
+            avatar
+        };
+        const userExists = await User.findOne({email})// || await User.findOne({username});
         if(userExists) {
             res.status(400).json({error: "User already exists"});
             throw new Error("User already exists");
         }
         try {
+            console.log(data);
             const user = await User.create(data);
             res.status(200).json({
                 user,
@@ -73,10 +87,10 @@ const createUser = asyncHandler(async (req, res)=>{
 const getUser = asyncHandler(async (req, res)=> {
     try {
         let user = await User.findById(req.user._id);
-        const {first_name, last_name, username, email, tel, birth_date, addr, zip, avatar, is_admin} = user;
+        const {firstName, lastName, username, email, tel, birthDate, prov, addr, zip, avatar, is_admin} = user;
         if(user) {
             res.json({
-                user: {first_name, last_name, username, email, tel, birth_date, addr, zip, avatar, is_admin}
+                user: {firstName, lastName, username, email, tel, birthDate, prov, addr, zip, avatar, is_admin}
             })
         }
         else {
@@ -96,22 +110,23 @@ const updateUser = asyncHandler(async (req, res) => {
     if(Object.keys(req.body).length) {
         const user = await User.findById(req.user._id);
         if(user) {
-            user.first_name = req.body.first_name || user.first_name;
-            user.last_name = req.body.last_name || user.last_name;
+            user.firstName = req.body.firstName || user.firstName;
+            user.lastName = req.body.lastName || user.lastName;
             user.username = req.body.username || user.username;
             user.email = req.body.email || user.email;
             user.password = req.body.password || user.password;
             user.tel = req.body.tel || user.tel;
+            user.prov = req.body.prov || user.prov;
             user.addr = req.body.addr || user.addr;
             user.zip = req.body.zip || user.zip;
-            user.birth_date = req.body.birth_date || user.birth_date;
+            user.birthDate = req.body.birthDate || user.birthDate;
             user.avatar = req.body.avatar || user.avatar;
 
             try {
-                const {first_name, last_name, username, email, tel, birth_date, addr, zip, avatar} = await user.save();
+                const {firstName, lastName, username, email, tel, birthDate, prov, addr, zip, avatar} = await user.save();
                 if(updateUser) {
                     res.status(200).json({
-                        updatedUser: {first_name, last_name, username, email, tel, birth_date, addr, zip, avatar}
+                        updatedUser: {firstName, lastName, username, email, tel, birthDate, addr, zip, avatar}
                     });
                 }
                 else {
